@@ -1,9 +1,11 @@
 package com.zsj.controller;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,6 +52,10 @@ public class QueryController {
 				columnTypeName = rsd.getColumnTypeName(i+1);
 				columnName = rsd.getColumnName(i+1);
 				columnDisplaySize = rsd.getColumnDisplaySize(i+1);
+//				System.out.println(columnClassName);
+//				System.out.println(columnTypeName);
+//				System.out.println(columnDisplaySize);
+//				System.out.println();
 				ColumnBean columnBean = new ColumnBean();
 				columnBean.setColumnClassName(columnClassName);
 				columnBean.setColumnDisplaySize(columnDisplaySize);
