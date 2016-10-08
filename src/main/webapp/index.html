@@ -1,0 +1,82 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script>
+<script>
+	
+function query(){
+	$.ajax({
+		url : "query", //请求的url地址
+		dataType : "json", //返回格式为json
+		async : true, //请求是否异步，默认为异步，这也是ajax重要特性
+		data : {
+			"table" : "account_s"
+		}, //参数值
+		type : "POST", //请求方式
+		beforeSend : function() {
+			//请求前的处理
+		},
+		success : function(data) {
+			//请求成功时处理
+			var obj = jQuery.parseJSON(data)
+			$("#columns").html("");
+			$.each(obj.columnBeans, function(n, value) {
+				var trs = "<input type='checkbox' name='columns' value='"+value.columnName+":"+value.columnClassName+"' checked='checked' />";
+				trs +=  value.columnName
+					+ "</br>";
+				$("#columns").append(trs);
+			});
+		},
+		complete : function() {
+			//请求完成的处理
+		},
+		error : function() {
+			//请求出错处理
+		}
+		});
+	};
+	
+		//创建model
+		function create(){
+			var columns = "";
+			$('input[name="columns"]:checked').each(function(){ 
+				columns+=$(this).val()+";"; 
+	               }); 
+			 alert(columns);
+				$.ajax({
+					url : "create", //请求的url地址
+					dataType : "json", //返回格式为json
+					async : true, //请求是否异步，默认为异步，这也是ajax重要特性
+					data : {
+						"columns" : columns
+					}, //参数值
+					type : "POST", //请求方式
+					beforeSend : function() {
+						//请求前的处理
+					},
+					success : function(data) {
+						
+					},
+					complete : function() {
+						//请求完成的处理
+					},
+					error : function() {
+						//请求出错处理
+					}
+					});
+		}
+	
+			
+</script>
+</head>
+<body>
+	表名：
+	<input id="table" name="table" />
+	</br>
+	<button id="query" onclick=query()>获取其他内容</button>
+	<br />
+	<div id="columns"></div>
+	<button id="create" onclick=create()>创建</button>
+
+</body>
+</html>
